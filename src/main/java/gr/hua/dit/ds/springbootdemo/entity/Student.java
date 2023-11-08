@@ -1,14 +1,13 @@
 package gr.hua.dit.ds.springbootdemo.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Student {
 
-    @jakarta.persistence.Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private Integer Id;
 
@@ -19,6 +18,10 @@ public class Student {
 
     @Column
     private String email;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="student_profile_id")
+    private StudentProfile studentProfile;
 
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -59,6 +62,14 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public StudentProfile getStudentProfile() {
+        return studentProfile;
+    }
+
+    public void setStudentProfile(StudentProfile studentProfile) {
+        this.studentProfile = studentProfile;
     }
 
     @Override

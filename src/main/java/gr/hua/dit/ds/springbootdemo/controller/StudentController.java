@@ -1,7 +1,9 @@
 package gr.hua.dit.ds.springbootdemo.controller;
 
+import gr.hua.dit.ds.springbootdemo.dao.StudentDAO;
 import gr.hua.dit.ds.springbootdemo.entity.Student;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,8 @@ import java.util.List;
 @RequestMapping("student")
 public class StudentController {
 
+    @Autowired
+    private StudentDAO studentDao;
     private List<Student> students = new ArrayList<Student>();
 
     @PostConstruct
@@ -31,7 +35,7 @@ public class StudentController {
     public String showStudents(Model model){
 
 
-        model.addAttribute("students", students);
+        model.addAttribute("students", studentDao.getStudents());
 
         return "students";
     }
@@ -47,10 +51,8 @@ public class StudentController {
 
     @PostMapping("/new")
     public String saveStudent(@ModelAttribute("student") Student student, Model model) {
-        System.out.println(student);
-        System.out.println(students);
-        students.add(student);
-        model.addAttribute("students", students);
+        studentDao.saveStudent(student);
+        model.addAttribute("students", studentDao.getStudents());
         return "students";
     }
 }
