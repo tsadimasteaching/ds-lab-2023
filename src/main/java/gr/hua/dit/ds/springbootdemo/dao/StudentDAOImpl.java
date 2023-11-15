@@ -38,4 +38,11 @@ public class StudentDAOImpl implements StudentDAO {
 
 
     }
+
+    @Override
+    public Student getStudent(int id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Student astudent =currentSession.get(Student.class, id);
+        return astudent;
+    }
 }
