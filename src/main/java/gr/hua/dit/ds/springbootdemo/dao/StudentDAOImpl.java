@@ -1,5 +1,6 @@
 package gr.hua.dit.ds.springbootdemo.dao;
 
+import gr.hua.dit.ds.springbootdemo.entity.Assignment;
 import gr.hua.dit.ds.springbootdemo.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -47,5 +48,12 @@ public class StudentDAOImpl implements StudentDAO {
     public void deleteStudent(Integer student_id) {
         System.out.println("Deleting student with id: " + student_id);
        entityManager.remove(entityManager.find(Student.class, student_id));
+    }
+
+    @Override
+    @Transactional
+    public List<Assignment> getAssignments(Integer student_id) {
+        Student student = entityManager.find(Student.class, student_id);
+        return student.getAssignments();
     }
 }

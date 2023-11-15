@@ -3,6 +3,8 @@ package gr.hua.dit.ds.springbootdemo.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Student {
 
@@ -22,6 +24,20 @@ public class Student {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="student_profile_id")
     private StudentProfile studentProfile;
+
+
+    public List<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<Assignment> assignments) {
+        this.assignments = assignments;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="student_id")
+    private List<Assignment> assignments;
+
 
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;

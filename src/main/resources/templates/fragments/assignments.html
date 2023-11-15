@@ -1,0 +1,22 @@
+<assignments>
+
+    <div th:if="${student}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="assignment : ${assignments}">
+                <td th:text="${assignment.title}"></td>
+                <td th:if="${assignment.id}"><a class="btn btn-info" th:href="@{/assignment/{student_id}/{assignment_id}(student_id=${student.id},assignment_id=${assignment.id})}">Edit</a>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a th:href="@{/assignment/{id}/new(id=${student.id})}" class="btn btn-primary" role="button">Create new Assignment</a>
+</assignments>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/header :: header"></head>
+
+<body>
+<!-- Include the header fragment -->
+<div th:insert="fragments/menu :: menu"></div>
+<main>
+  <div class="container" >
+    <form action="#" th:action="@{/assignment/{id}(id=${student_id})}" th:object="${assignment}"
+          method="post">
+      <div class="form-group">
+        <label for="id">Id</label>
+        <input type="text" id="id" class="form-control" th:field="*{id}">
+      </div>
+
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" class="form-control" th:field="*{title}">
+      </div>
+
+      <div class="form-group">
+        <label for="body">Body</label>
+        <input type="text" id="body" class="form-control" th:field="*{body}">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</main>
+
+<!-- Include the footer fragment -->
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
