@@ -6,6 +6,7 @@
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Email</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -13,6 +14,12 @@
                 <td th:text="${student.firstName}"></td>
                 <td th:text="${student.lastName}"></td>
                 <td th:text="${student.email}"></td>
+                <td th:if="${student.id}"><a class="btn btn-info" th:href="@{/student/{id}(id=${student.id})}">Edit</a>
+                    <button type="button" class="btn btn-danger" th:id="${student.id}"
+                            name="deleteStudent"><i class="remove user icon"></i>
+                        Delete</button>
+
+                </td>
             </tr>
             </tbody>
             </table>
@@ -21,4 +28,21 @@
     No Students found!
     </div>
     <a href="/student/new" class="btn btn-primary" role="button">Create new Student</a>
+    <script type="text/javascript">
+        $("[name='deleteStudent']").click(function() {
+            var urlCall = "/student/";
+            $.ajax({
+                url : urlCall + $(this).attr('id'),
+                type : 'DELETE',
+                success : function(result) {
+                    console.log(result);
+                    $(location).attr("href", value="/student");
+                },
+                error : function(result) {
+                    console.log(result);
+                },
+            });
+        });
+    </script>
+
 </students>
