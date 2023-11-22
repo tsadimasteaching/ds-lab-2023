@@ -24,7 +24,8 @@ public class AssignmentController  {
 
     @PostMapping("{student_id}")
     public String saveAssignment(@PathVariable int student_id, @ModelAttribute("assignment") Assignment assignment){
-        System.out.println("student_id: "+student_id);
+        System.out.println("student_id: (reg)"+student_id);
+        System.out.println("assignment: (reg)"+assignment.getTitle());
         assignmentService.saveAssignment(assignment,student_id);
         return "redirect:/assignment/"+student_id;
     }
@@ -33,6 +34,7 @@ public class AssignmentController  {
     public String showAssignments(@PathVariable int student_id, Model model){
         Student student = studentDAO.getStudent(student_id);
         List<Assignment> assignments = student.getAssignments();
+        System.out.println(assignments);
         model.addAttribute("student", student);
         model.addAttribute("assignments", assignments);
         return "assignments";
@@ -48,8 +50,11 @@ public class AssignmentController  {
 
     @PostMapping("{student_id}/{assignment_id}")
     public String updateAssignment(@PathVariable int student_id, @PathVariable int assignment_id){
+        System.out.println("student_id: (2 ids)"+student_id);
+
         Assignment assignment = assignmentService.getAssignment(assignment_id);
-        assignmentService.saveAssignment(assignment, student_id);
+        Student student = studentDAO.getStudent(student_id);
+        assignmentService.saveAssignment(assignment,student_id);
         return "redirect:/assignment/"+student_id;
     }
 

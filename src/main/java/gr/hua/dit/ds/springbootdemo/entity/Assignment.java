@@ -16,14 +16,22 @@ public class Assignment {
     @Column
     private String body;
 
-    @Column
-    private Integer student_id;
-
-
     public Assignment(String title, String body, Student student) {
         this.title = title;
         this.body = body;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="student_id")
+    private Student student;
 
     public Assignment() {
     }

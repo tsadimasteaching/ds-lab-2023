@@ -34,8 +34,7 @@ public class Student {
         this.assignments = assignments;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="student_id")
+    @OneToMany(mappedBy="student", cascade = CascadeType.ALL)
     private List<Assignment> assignments;
 
 

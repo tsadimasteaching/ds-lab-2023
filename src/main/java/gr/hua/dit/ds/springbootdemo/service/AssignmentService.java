@@ -18,7 +18,8 @@ public class AssignmentService {
     @Transactional
     public void saveAssignment(Assignment assignment, Integer student_id){
         Student student = studentDAO.getStudent(student_id);
-        student.getAssignments().add(assignment);
+        assignment.setStudent(student);
+        assignmentRepository.save(assignment);
     }
 
     public Assignment getAssignment(int assignmentId) {

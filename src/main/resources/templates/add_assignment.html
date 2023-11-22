@@ -8,11 +8,10 @@
 <div th:insert="fragments/menu :: menu"></div>
 <main>
   <div class="container" >
-    <form action="#" th:action="@{/assignment/{id}(id=${student_id})}" th:object="${assignment}"
+    <form action="#" th:action="@{/assignment/{id}(id=${student_id})}" th:method="post" th:object="${assignment}"
           method="post">
       <div class="form-group">
-        <label for="id">Id</label>
-        <input type="text" id="id" class="form-control" th:field="*{id}">
+        <input type="hidden" id="id" class="form-control" th:field="*{id}">
       </div>
 
       <div class="form-group">
