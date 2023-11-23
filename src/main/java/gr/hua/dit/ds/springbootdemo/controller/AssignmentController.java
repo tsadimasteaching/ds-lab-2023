@@ -66,4 +66,9 @@ public class AssignmentController  {
         return "add_assignment";
     }
 
+    @DeleteMapping("{student_id}/{assignment_id}")
+    public String deleteAssignment(@PathVariable int student_id, @PathVariable int assignment_id, Model model){
+        assignmentService.deleteAssignment(assignment_id);
+        return "home";
+    }
 }

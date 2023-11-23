@@ -29,7 +29,7 @@ public class Assignment {
         this.student = student;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name="student_id")
     private Student student;
 

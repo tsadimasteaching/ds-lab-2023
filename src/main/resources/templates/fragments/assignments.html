@@ -5,13 +5,18 @@
             <thead>
             <tr>
                 <th>Title</th>
+                <th>Body</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="assignment : ${assignments}">
                 <td th:text="${assignment.title}"></td>
+                <td th:text="${assignment.body}"></td>
                 <td th:if="${assignment.id}"><a class="btn btn-info" th:href="@{/assignment/{student_id}/{assignment_id}(student_id=${student.id},assignment_id=${assignment.id})}">Edit</a>
+                    <button type="button" class="btn btn-danger" th:student_id="${student.id}" th:assignment_id="${assignment.id}"
+                            name="deleteAssignment"><i class="remove user icon"></i>
+                        Delete</button>
                 </td>
 
             </tr>
@@ -19,4 +24,25 @@
         </table>
     </div>
     <a th:href="@{/assignment/{id}/new(id=${student.id})}" class="btn btn-primary" role="button">Create new Assignment</a>
+    <script type="text/javascript">
+        $("[name='deleteAssignment']").click(function() {
+            var urlCall = "/assignment/";
+            var ur1= urlCall + $(this).attr('student_id') + "/" + $(this).attr('assignment_id')
+            console.log(ur1);
+            console.log($(this).attr('student_id'));
+            console.log($(this).attr('assignment_id'));
+            $.ajax({
+                url : urlCall + $(this).attr('student_id') + "/" + $(this).attr('assignment_id'),
+                type : 'DELETE',
+                success : function(result) {
+                    console.log(result);
+                    // $(location).attr("href", value="/assignment/"+$(this).attr('student_id'));
+                    window.location.reload();
+                },
+                error : function(result) {
+                    console.log(result);
+                },
+            });
+        });
+    </script>
 </assignments>

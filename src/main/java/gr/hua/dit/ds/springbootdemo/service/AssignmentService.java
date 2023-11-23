@@ -22,8 +22,13 @@ public class AssignmentService {
         assignmentRepository.save(assignment);
     }
 
+    @Transactional
     public Assignment getAssignment(int assignmentId) {
         return assignmentRepository.findById(assignmentId).get();
+    }
+
+    public void deleteAssignment(int assignmentId){
+        assignmentRepository.deleteById(assignmentId);
     }
 }
 
