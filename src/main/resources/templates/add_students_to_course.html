@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/header :: header"></head>
+
+<body>
+<!-- Include the header fragment -->
+<div th:insert="fragments/menu :: menu"></div>
+<main>
+    <div class="container" >
+        <h4 th:inline="text">
+            Students for Course [[${course.title}]]
+        </h4>
+        <div th:if="${ not#lists.isEmpty(students)}">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.firstName}"></td>
+                    <td th:text="${student.lastName}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td th:if="${student.id}">
+                        <button type="button" class="btn btn-info" th:student_id="${student.id}" th:course_id="${course.id}"
+                                name="enrollStudent"><i class="remove user icon"></i>
+                            Enroll</button>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+<!-- Include the footer fragment -->
+<div th:replace="fragments/footer :: footer"></div>
+<script type="text/javascript">
+    $("[name='enrollStudent']").click(function() {
+        var urlCall = "/course/students/";
+        var ur1= urlCall + $(this).attr('course_id') + "/" + $(this).attr('student_id');
+        console.log(ur1);
+        console.log($(this).attr('course_id'));
+        console.log($(this).attr('student_id'));
+        $.ajax({
+            url : urlCall + $(this).attr('course_id') + "/" + $(this).attr('student_id'),
+            type : 'POST',
+            success : function(result) {
+                console.log(result);
+                window.location.reload();
+            },
+            error : function(result) {
+                console.log(result);
+            },
+        });
+    });
+</script>
+</body>
+</html>

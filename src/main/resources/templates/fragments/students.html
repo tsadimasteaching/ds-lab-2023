@@ -19,6 +19,8 @@
                             name="deleteStudent"><i class="remove user icon"></i>
                         Delete</button>
                     <a class="btn btn-primary" th:href="@{/assignment/{id}(id=${student.id})}">Assignments</a>
+                    <a class="btn btn-primary" th:href="@{/course/student/{id}(id=${student.id})}">My Courses</a>
+                    <a class="btn btn-primary" th:href="@{/course/student/new/{id}(id=${student.id})}">Add Course</a>
                 </td>
 
             </tr>
