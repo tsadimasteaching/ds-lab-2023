@@ -29,7 +29,8 @@ public class Student {
     @JoinTable(
             name="course_student",
             joinColumns = @JoinColumn(name="student_id"),
-            inverseJoinColumns = @JoinColumn(name="course_id")
+            inverseJoinColumns = @JoinColumn(name="course_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames={"student_id", "course_id"})}
     )
     private List<Course> courses;
 

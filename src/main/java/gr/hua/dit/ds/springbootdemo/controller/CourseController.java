@@ -45,6 +45,8 @@ public class CourseController {
         Course course = courseService.getCourse(course_id);
         model.addAttribute("course", course);
         List<Student> students = studentDAO.getStudents();
+        List<Student> coursestudents = course.getStudents();
+        students.removeAll(coursestudents);
         model.addAttribute("students", students);
         return "add_students_to_course";
     }
