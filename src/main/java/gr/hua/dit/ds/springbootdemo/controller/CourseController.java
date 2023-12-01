@@ -5,6 +5,7 @@ import gr.hua.dit.ds.springbootdemo.entity.Course;
 import gr.hua.dit.ds.springbootdemo.entity.Student;
 import gr.hua.dit.ds.springbootdemo.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class CourseController {
         return "courses";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/new")
     public String addCourse(Model model){
         Course course = new Course();
@@ -51,6 +53,7 @@ public class CourseController {
         return "add_students_to_course";
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping("students/{course_id}/{student_id}")
     public String enrollStudent(@PathVariable Integer course_id, @PathVariable Integer student_id, Model model){
         System.out.println("inside post");
@@ -69,6 +72,8 @@ public class CourseController {
         model.addAttribute("courses", courseService.getStudentCourses(student_id));
         return "courses";
     }
+
+    @Secured("ROLE_ADMIN")
     @PostMapping("/new")
     public String saveCourse(Course course, Model model){
         courseService.saveCourse(course);
