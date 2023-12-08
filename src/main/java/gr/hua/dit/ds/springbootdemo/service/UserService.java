@@ -65,4 +65,13 @@ public class UserService implements UserDetailsService {
             );
         }
     }
+
+    @Transactional
+    public Object getUsers() {
+        return userRepository.findAll();
+    }
+
+    public Object getUser(Long userId) {
+        return userRepository.findById(userId).get();
+    }
 }
