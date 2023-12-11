@@ -17,7 +17,7 @@
                     <a class="btn btn-danger" th:href="@{/user/role/delete/{id}/{role_id}(id=${user.id},role_id=${role.id})}" th:utext="'Delete '+  ${role.name}"/>
                 </span>
                     <span th:each="role : ${roles}">
-                        <a  class="btn btn-success" th:if="${! user.roles.contains(role)}" th:utext="'Add ' + ${role.name}"></a>
+                        <a  class="btn btn-success" th:href="@{/user/role/add/{id}/{role_id}(id=${user.id},role_id=${role.id})}" th:if="${! user.roles.contains(role)}" th:utext="'Add ' + ${role.name}"></a>
 
                     </span>
                 </td>

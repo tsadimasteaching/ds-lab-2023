@@ -46,6 +46,12 @@ public class UserService implements UserDetailsService {
         user = userRepository.save(user);
         return user.getId();
     }
+
+    @Transactional
+    public Integer updateUer(User user) {
+        user = userRepository.save(user);
+        return user.getId();
+    }
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
