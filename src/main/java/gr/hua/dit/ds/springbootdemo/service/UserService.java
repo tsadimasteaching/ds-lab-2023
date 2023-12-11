@@ -32,8 +32,8 @@ public class UserService implements UserDetailsService {
     private BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
-    public Integer saveUser(User user) {
-        String passwd= user.getPassword();
+    public Long saveUser(User user) {
+        String passwd = user.getPassword();
         String encodedPasswod = passwordEncoder.encode(passwd);
         user.setPassword(encodedPasswod);
 
@@ -48,17 +48,18 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public Integer updateUer(User user) {
+    public Long updateUer(User user) {
         user = userRepository.save(user);
         return user.getId();
     }
+
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> opt = userRepository.findByUsername(username);
 
-        if(opt.isEmpty())
-            throw new UsernameNotFoundException("User with email: " +username +" not found !");
+        if (opt.isEmpty())
+            throw new UsernameNotFoundException("User with email: " + username + " not found !");
         else {
             User user = opt.get();
             return new org.springframework.security.core.userdetails.User(
@@ -66,7 +67,7 @@ public class UserService implements UserDetailsService {
                     user.getPassword(),
                     user.getRoles()
                             .stream()
-                            .map(role-> new SimpleGrantedAuthority(role.toString()))
+                            .map(role -> new SimpleGrantedAuthority(role.toString()))
                             .collect(Collectors.toSet())
             );
         }

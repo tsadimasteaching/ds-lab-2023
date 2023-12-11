@@ -1,6 +1,7 @@
 package gr.hua.dit.ds.springbootdemo.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class Student {
     @JoinColumn(name="student_profile_id")
     private StudentProfile studentProfile;
 
+    @JsonIgnore
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name="course_student",

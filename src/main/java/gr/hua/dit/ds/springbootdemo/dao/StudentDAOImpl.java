@@ -34,13 +34,14 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     @Transactional
-    public void saveStudent(Student student) {
+    public Student saveStudent(Student student) {
         System.out.println("student "+ student.getId());
         if (student.getId() == null) {
             entityManager.persist(student);
         } else {
             entityManager.merge(student);
         }
+        return student;
     }
 
     @Override
