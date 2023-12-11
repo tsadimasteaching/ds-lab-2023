@@ -5,7 +5,8 @@ import gr.hua.dit.ds.springbootdemo.entity.Role;
 import gr.hua.dit.ds.springbootdemo.entity.User;
 import gr.hua.dit.ds.springbootdemo.repository.RoleRepository;
 import gr.hua.dit.ds.springbootdemo.repository.UserRepository;
-import gr.hua.dit.ds.springbootdemo.service.UserDetailsService;
+import gr.hua.dit.ds.springbootdemo.service.UserDetailsImpl;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,15 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+
+
+    @PostConstruct
+    public void setup(){
+       Role role_user=new Role("ROLE_USER");
+       Role role_admin=new Role("ROLE_ADMIN");
+       roleRepository.save(role_user);
+       roleRepository.save(role_admin);
+    }
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         System.out.println("authentication");
@@ -58,7 +68,7 @@ public class AuthController {
         String jwt = jwtUtils.generateJwtToken(authentication);
         System.out.println("jw: " + jwt);
 
-        UserDetailsService userDetails = (UserDetailsService) authentication.getPrincipal();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
