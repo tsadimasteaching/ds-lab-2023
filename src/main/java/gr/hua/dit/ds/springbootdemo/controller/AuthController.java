@@ -49,13 +49,6 @@ public class AuthController {
 
 
 
-    @PostConstruct
-    public void setup(){
-       Role role_user=new Role("ROLE_USER");
-       Role role_admin=new Role("ROLE_ADMIN");
-       roleRepository.save(role_user);
-       roleRepository.save(role_admin);
-    }
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         System.out.println("authentication");

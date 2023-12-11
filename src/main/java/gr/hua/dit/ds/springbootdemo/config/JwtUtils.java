@@ -24,6 +24,7 @@ public class JwtUtils {
         System.out.println("1");
 
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+
         System.out.println("2");
         System.out.println(userPrincipal.getUsername());
         return Jwts.builder()
@@ -45,6 +46,7 @@ public class JwtUtils {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException e) {
+            logger.error("token {}", authToken);
             logger.error("Invalid JWT token: {}", e.getMessage());
         } catch (ExpiredJwtException e) {
             logger.error("JWT token is expired: {}", e.getMessage());
