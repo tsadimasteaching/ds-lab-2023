@@ -48,6 +48,17 @@ public class AuthController {
     JwtUtils jwtUtils;
 
 
+    @PostConstruct
+    public void setup() {
+        roleRepository.findByName("ROLE_ADMIN").orElseGet(() -> {
+            roleRepository.save(new Role("ROLE_ADMIN"));
+            return null;
+        });
+        roleRepository.findByName("ROLE_USER").orElseGet(() -> {
+            roleRepository.save(new Role("ROLE_USER"));
+            return null;
+        });
+    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
