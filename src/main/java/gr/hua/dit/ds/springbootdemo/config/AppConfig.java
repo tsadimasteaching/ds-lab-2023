@@ -13,7 +13,7 @@ public class AppConfig {
     public GroupedOpenApi controllerApi() {
         return GroupedOpenApi.builder()
                 .group("controller-api")
-                .packagesToScan("com.surya.controller") // Specify the package to scan
+                .packagesToScan("gr.hua.dit.ds.springbootdemo") // Specify the package to scan
                 .build();
     }
     @Bean
