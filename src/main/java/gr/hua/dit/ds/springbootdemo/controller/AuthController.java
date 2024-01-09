@@ -58,6 +58,15 @@ public class AuthController {
             roleRepository.save(new Role("ROLE_USER"));
             return null;
         });
+        this.userRepository.findByUsername("gkoulis").orElseGet(() -> {
+            User user = new User("gkoulis", "gkould@gmail.com", encoder.encode("1234"));
+            Set<Role> roles = new HashSet<>();
+            roles.add(this.roleRepository.findByName("ROLE_USER").orElseThrow());
+            roles.add(this.roleRepository.findByName("ROLE_ADMIN").orElseThrow());
+            user.setRoles(roles);
+            userRepository.save(user);
+            return null;
+        });
     }
 
     @PostMapping("/signin")
