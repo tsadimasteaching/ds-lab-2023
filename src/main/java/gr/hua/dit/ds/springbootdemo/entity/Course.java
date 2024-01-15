@@ -1,9 +1,9 @@
 package gr.hua.dit.ds.springbootdemo.entity;
 
-
 import jakarta.persistence.*;
 
 import java.util.List;
+
 
 @Entity
 public class Course {

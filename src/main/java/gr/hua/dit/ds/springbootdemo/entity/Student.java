@@ -55,7 +55,6 @@ public class Student {
     @OneToMany(mappedBy="student", cascade = CascadeType.ALL)
     private List<Assignment> assignments;
 
-
     public Student(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;

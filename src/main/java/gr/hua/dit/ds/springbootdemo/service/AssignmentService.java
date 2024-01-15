@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AssignmentService {
+
     @Autowired
     private AssignmentRepository assignmentRepository;
     @Autowired
@@ -31,4 +32,3 @@ public class AssignmentService {
         assignmentRepository.deleteById(assignmentId);
     }
 }
-

@@ -3,10 +3,13 @@ package gr.hua.dit.ds.springbootdemo.controller;
 import gr.hua.dit.ds.springbootdemo.config.JwtUtils;
 import gr.hua.dit.ds.springbootdemo.entity.Role;
 import gr.hua.dit.ds.springbootdemo.entity.User;
+import gr.hua.dit.ds.springbootdemo.payload.request.LoginRequest;
+import gr.hua.dit.ds.springbootdemo.payload.request.SignupRequest;
+import gr.hua.dit.ds.springbootdemo.payload.response.JwtResponse;
+import gr.hua.dit.ds.springbootdemo.payload.response.MessageResponse;
 import gr.hua.dit.ds.springbootdemo.repository.RoleRepository;
 import gr.hua.dit.ds.springbootdemo.repository.UserRepository;
 import gr.hua.dit.ds.springbootdemo.service.UserDetailsImpl;
-import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +17,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import gr.hua.dit.ds.springbootdemo.payload.request.*;
-import gr.hua.dit.ds.springbootdemo.payload.response.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -46,28 +44,6 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
-
-
-    @PostConstruct
-    public void setup() {
-        roleRepository.findByName("ROLE_ADMIN").orElseGet(() -> {
-            roleRepository.save(new Role("ROLE_ADMIN"));
-            return null;
-        });
-        roleRepository.findByName("ROLE_USER").orElseGet(() -> {
-            roleRepository.save(new Role("ROLE_USER"));
-            return null;
-        });
-        this.userRepository.findByUsername("gkoulis").orElseGet(() -> {
-            User user = new User("gkoulis", "gkould@gmail.com", encoder.encode("1234"));
-            Set<Role> roles = new HashSet<>();
-            roles.add(this.roleRepository.findByName("ROLE_USER").orElseThrow());
-            roles.add(this.roleRepository.findByName("ROLE_ADMIN").orElseThrow());
-            user.setRoles(roles);
-            userRepository.save(user);
-            return null;
-        });
-    }
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -147,7 +123,4 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-
-
-
 }

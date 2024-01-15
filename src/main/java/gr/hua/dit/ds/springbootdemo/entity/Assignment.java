@@ -60,7 +60,6 @@ public class Assignment {
         this.body = body;
     }
 
-
     @Override
     public String toString() {
         return "Assignment{" +

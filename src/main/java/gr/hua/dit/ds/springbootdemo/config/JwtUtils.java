@@ -1,6 +1,5 @@
 package gr.hua.dit.ds.springbootdemo.config;
 
-
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+
 @Component
 public class JwtUtils {
+
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${app.jwtSecret}")
@@ -21,12 +22,7 @@ public class JwtUtils {
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {
-        System.out.println("1");
-
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
-
-        System.out.println("2");
-        System.out.println(userPrincipal.getUsername());
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())
@@ -35,7 +31,6 @@ public class JwtUtils {
                 .compact();
 
     }
-
 
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
